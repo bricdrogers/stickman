@@ -1,3 +1,5 @@
+#if 0
+
 /*
  * 	sdlInput
  *
@@ -199,3 +201,5 @@ namespace stickman_engine
 }
 
 #endif // SDLINPUT_H
+
+#endif

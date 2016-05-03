@@ -1,3 +1,5 @@
+#if  0
+
 #ifndef SDL_GL_PLATFORM_H
 #define SDL_GL_PLATFORM_H
 
@@ -25,3 +27,5 @@ namespace stickman_engine
 	};
 }
 #endif // SDL_GL_PLATFORM_H
+
+#endif

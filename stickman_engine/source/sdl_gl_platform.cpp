@@ -1,3 +1,5 @@
+#if 0
+
 #include "globals.h"
 
 #ifdef  PLATFORM_WIN32_SDL
@@ -95,3 +97,5 @@ namespace stickman_engine
 }
 
 #endif //  PLATFORM_WIN32_SDL
+
+#endif
