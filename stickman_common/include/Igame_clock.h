@@ -15,6 +15,9 @@ namespace stickman_common
 		virtual void getFPS(int64_t *fps) = 0;
 		virtual void getCPUCyclesDelta(int64_t *cyclesDelta) = 0;
 
+		virtual double testfunc() = 0;
+		virtual inline double testfunc2() = 0;
+
 		virtual bool isInitialized() = 0;
 	};
 }

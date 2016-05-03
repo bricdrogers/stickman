@@ -1,9 +1,8 @@
 #include "stickman_engine.h"
 #include "callback.h"
 
-// TODO remove
-#include <Windows.h>
 #include <stdio.h>
+#include "win32_clock.h"
 
 namespace stickman_engine
 {
@@ -101,6 +100,11 @@ namespace stickman_engine
 		{
 			// Update the game clock
 			_gameClock->update();
+			_gameClock->testfunc();
+			_gameClock->testfunc2();
+			win32_clock *test1 = (win32_clock*)_gameClock;
+			test1->testfunc3();
+			test1->testfunc2();
 
 			// TODO: Write a profiler and move this
 			double timedelta;

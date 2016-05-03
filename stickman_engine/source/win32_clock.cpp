@@ -1,5 +1,4 @@
-// External includes
-#include <windows.h>
+
 
 // Internal Includes
 #include "win32_clock.h"
