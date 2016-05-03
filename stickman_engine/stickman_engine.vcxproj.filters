@@ -64,9 +64,6 @@
     <ClCompile Include="source\game_code.cpp">
       <Filter>source</Filter>
     </ClCompile>
-    <ClCompile Include="source\sdl_gl_platform.cpp">
-      <Filter>source\platform</Filter>
-    </ClCompile>
     <ClCompile Include="source\sdl_Input.cpp">
       <Filter>source\input</Filter>
     </ClCompile>
@@ -77,6 +74,9 @@
       <Filter>source\platform\win32</Filter>
     </ClCompile>
     <ClCompile Include="source\win32_io.cpp">
+      <Filter>source\platform\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="source\sdl_gl_platform.cpp">
       <Filter>source\platform\win32</Filter>
     </ClCompile>
   </ItemGroup>

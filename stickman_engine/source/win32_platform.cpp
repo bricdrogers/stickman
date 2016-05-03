@@ -48,6 +48,12 @@ namespace stickman_engine
 		_windowHandle = nullptr;
 	}
 
+	static int testfunction(int a)
+	{
+		return a + 1;
+	}
+
+
 	bool win32_platform::init(int winW, int winH, Igame_clock **clock, Igame_io **gameIO, game_memory *memory, game_buffer *buffer)
 	{
 		// Define the window
@@ -111,7 +117,9 @@ namespace stickman_engine
 #endif
 
 		memory->persistantStorageSize = MEGABYTES(64);
-		memory->transientStorageSize = GIGABYTES((uint64_t)2);
+		memory->transientStorageSize = GIGABYTES((uint64_t)1);
+
+		// TODO: Get MEM_LARGE_PAGES working as this will allow use to have up to 2mb pages which gives up a small boost in the CPU TLB
 		memory->persistantStorage = VirtualAlloc(baseAddress, memory->persistantStorageSize + memory->transientStorageSize, MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
 		memory->transientStorage = (uint8_t *)(memory->persistantStorage) + memory->persistantStorageSize;
 
@@ -121,6 +129,10 @@ namespace stickman_engine
 
 		// Create and initialize the gameIO object
 		*gameIO = new win32_io();
+
+
+		int z = testfunction(100);
+		int y = testInline(100);
 
 		return true;
 	}
@@ -239,8 +251,8 @@ namespace stickman_engine
 		// Blt the dib section with the option to scale
 		// Note: this is bitblt with scaling
 		StretchDIBits(deviceContext,
-						0, 0, _backBuffer->width, _backBuffer->height,	// source size
 						0, 0, _clientWidth, _clientHeight,				// dest size
+						0, 0, _backBuffer->width, _backBuffer->height,	// source size
 						_backBuffer->memory,
 						&_bitmapInfo,
 						DIB_RGB_COLORS,			// DIB section will not use a palette

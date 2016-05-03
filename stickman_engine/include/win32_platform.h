@@ -22,6 +22,12 @@ namespace stickman_engine
 
 		void bindQuitCallback(callback0* cb);
 
+		inline int testInline(int a)
+		{
+			return a + 1;
+		}
+
+
 
 		LRESULT CALLBACK handleWinProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 

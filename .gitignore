@@ -35,3 +35,7 @@
 *.ilk
 *.sdf
 *.user
+*.ipdb
+*.iobj
+*.opendb
+*.cache

@@ -16,6 +16,8 @@ namespace stickman_engine
 {
 	using namespace stickman_common;
 
+	// TODO: Inline this class
+
 	class win32_clock : public Igame_clock
 	{	
 		public:
