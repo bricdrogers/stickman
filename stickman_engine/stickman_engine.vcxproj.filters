@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="source">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="include\utils">
+      <UniqueIdentifier>{0a535813-a6cf-4799-a2fd-d01b52aa312b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\platform">
+      <UniqueIdentifier>{51c4d64b-98a2-4b1a-83e0-ba2c821be8c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\platform">
+      <UniqueIdentifier>{8ecbf15d-f450-400b-8f03-ac90f5816b80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\input">
+      <UniqueIdentifier>{cc223166-2e04-42f4-b123-3ecf81c49c47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\platform\win32">
+      <UniqueIdentifier>{8fa65143-eb00-42aa-9aef-c782cbc06737}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\platform\win32">
+      <UniqueIdentifier>{478bbea5-8da9-4dd3-959e-912ccc42f167}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\game_code.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\stickman_engine.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\sdl_gl_platform.h">
+      <Filter>include\platform</Filter>
+    </ClInclude>
+    <ClInclude Include="include\callback.h">
+      <Filter>include\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="include\sdl_Input.h">
+      <Filter>include\platform</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Iplatform.h">
+      <Filter>include\platform</Filter>
+    </ClInclude>
+    <ClInclude Include="include\win32_platform.h">
+      <Filter>include\platform\win32</Filter>
+    </ClInclude>
+    <ClInclude Include="include\win32_clock.h">
+      <Filter>include\platform\win32</Filter>
+    </ClInclude>
+    <ClInclude Include="include\win32_io.h">
+      <Filter>include\platform\win32</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\stickman_engine.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game_code.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\sdl_gl_platform.cpp">
+      <Filter>source\platform</Filter>
+    </ClCompile>
+    <ClCompile Include="source\sdl_Input.cpp">
+      <Filter>source\input</Filter>
+    </ClCompile>
+    <ClCompile Include="source\win32_platform.cpp">
+      <Filter>source\platform\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="source\win32_clock.cpp">
+      <Filter>source\platform\win32</Filter>
+    </ClCompile>
+    <ClCompile Include="source\win32_io.cpp">
+      <Filter>source\platform\win32</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
