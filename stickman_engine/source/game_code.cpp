@@ -89,12 +89,4 @@ namespace stickman_engine
 		// Load the game code
 		return load(memory, gameIO);
 	}
-
-	void game_code::updateAndRender(game_memory *memory, game_buffer *buffer)
-	{
-		if (_GameUpdateAndRenderFuncPtr != nullptr)
-		{
-			_GameUpdateAndRenderFuncPtr(memory, buffer);
-		}
-	}
 }

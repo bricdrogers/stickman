@@ -13,9 +13,7 @@
   <ItemGroup>
     <ClInclude Include="include\callback.h" />
     <ClInclude Include="include\game_code.h" />
-    <ClInclude Include="include\Iplatform.h" />
     <ClInclude Include="include\sdl_Input.h" />
-    <ClInclude Include="include\stickman_engine.h" />
     <ClInclude Include="include\sdl_gl_platform.h" />
     <ClInclude Include="include\win32_clock.h" />
     <ClInclude Include="include\win32_io.h" />
@@ -24,7 +22,6 @@
   <ItemGroup>
     <ClCompile Include="source\game_code.cpp" />
     <ClCompile Include="source\sdl_Input.cpp" />
-    <ClCompile Include="source\stickman_engine.cpp" />
     <ClCompile Include="source\sdl_gl_platform.cpp" />
     <ClCompile Include="source\win32_clock.cpp" />
     <ClCompile Include="source\win32_io.cpp" />

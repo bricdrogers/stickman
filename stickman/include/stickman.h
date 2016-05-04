@@ -1,13 +1,15 @@
 #ifndef STICKMAN_H
 #define STICKMAN_H
 
-#include "Igame_core.h"
+#include "game_memory.h"
+#include "game_buffer.h"
+#include "Igame_io.h"
 
 using namespace stickman_common;
 
 namespace stickman_game
 {
-	class stickman : public Igame_core
+	class stickman
 	{
 	public:
 		stickman();

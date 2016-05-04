@@ -1,30 +1,25 @@
 #include "stickman_external.h"
-#include <iostream>
 
 using namespace stickman_game;
 
 // Initialize globals
-stickman_common::Igame_core * _game_core = nullptr;
-bool mInitialize = false;
+stickman_game::stickman* _game = nullptr;
 
 extern "C" __declspec(dllexport) GAME_INITIALIZE(GameInitialize)
 {
 	// Create a new instance of stickman
-	_game_core = new stickman();
+	_game = new stickman();
 
-	if (_game_core == nullptr)
+	if (_game == nullptr)
 	{
 		// TODO: Log error
-		return;
+		return false;
 	}
 
-	mInitialize = _game_core->initialize(memory, gameIO); 	// Set the initialized flag.
+	return _game->initialize(memory, gameIO);
 }
 
 extern "C" __declspec(dllexport) GAME_UPDATE_AND_RENDER(GameUpdateAndRender)
 {
-	if (mInitialize == true)
-	{
-		_game_core->update_and_render(memory, buffer);
-	}
+	_game->update_and_render(memory, buffer);
 }

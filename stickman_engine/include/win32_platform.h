@@ -1,10 +1,10 @@
 #ifndef WIN32_PLATFORM_H
 #define WIN32_PLATFORM_H
 
-#include "Iplatform.h"
 #include "Igame_clock.h"
 #include "callback.h"
 #include "game_memory.h"
+#include "game_code.h"
 #include "game_buffer.h"
 #include "Igame_io.h"
 
@@ -12,40 +12,43 @@ namespace stickman_engine
 {
 	using namespace stickman_common;
 
-	class win32_platform : public Iplatform
+	class win32_platform
 	{
 	public:
 		win32_platform();
 
-		bool init(int winW, int winH, Igame_clock **clock, Igame_io **gameIO, game_memory *memory, game_buffer *buffer);
-		bool update();
-
-		void bindQuitCallback(callback0* cb);
-
-		inline int testInline(int a)
-		{
-			return a + 1;
-		}
-
-
+		bool init();
+		void run();
 
 		LRESULT CALLBACK handleWinProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 	private:
-		void resizeDIBSection(int width, int height);
+		inline void getClientSize(HWND hwnd, int * width, int * height)
+		{
+			RECT clientRect;
+			GetClientRect(hwnd, &clientRect);
+			*width = clientRect.right - clientRect.left;
+			*height = clientRect.bottom - clientRect.top;
+		}
+
 		void paintWindow(HDC deviceContext);
-		void getClientSize(HWND hwnd, int * width, int * height);
-
-		callback0* _quitCallback;		// Callback to quit the game
-
+		void resizeDIBSection(int width, int height);
+	
 		int _clientWidth;
 		int _clientHeight;
+		bool _isRunning;
 
 		HWND _windowHandle;
 
 		// paint storage
 		BITMAPINFO _bitmapInfo;
-		game_buffer * _backBuffer;	// Id really prefer to not store this
+		game_buffer _backBuffer;
+		
+		game_code _gameCode;		// pointer to the gamecode
+		game_memory _gameMemory;	// game memory
+		
+		Igame_clock *_gameClock;	// pointer to the game click
+		Igame_io *_gameIO;			// pointer to the game io
 	};
 }
 

@@ -7,10 +7,9 @@
 #include "Igame_io.h"
 
 // Globals
-extern stickman_common::Igame_core * _game_core;
-extern bool mInitialize;
+extern stickman_game::stickman* _game;
 
-#define GAME_INITIALIZE(name) void name(game_memory  *memory, Igame_io *gameIO)			// Initialize Macro
+#define GAME_INITIALIZE(name) bool name(game_memory  *memory, Igame_io *gameIO)			// Initialize Macro
 typedef GAME_INITIALIZE(game_initialize);								// Function Pointer
 
 #define GAME_UPDATE_AND_RENDER(name) void name(game_memory *memory, game_buffer *buffer)		// GameUpdateAndRender Macro

@@ -24,7 +24,13 @@ namespace stickman_engine
 		bool reload(game_memory *memory, Igame_io *gameIO);
 		void unload();
 		
-		void updateAndRender(game_memory *memory, game_buffer *buffer);
+		inline void updateAndRender(game_memory *memory, game_buffer *buffer)
+		{
+			if (_GameUpdateAndRenderFuncPtr != nullptr)
+			{
+				_GameUpdateAndRenderFuncPtr(memory, buffer);
+			}
+		}
 
 		void cleanup();
 

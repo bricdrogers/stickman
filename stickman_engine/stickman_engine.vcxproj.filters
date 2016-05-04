@@ -32,9 +32,6 @@
     <ClInclude Include="include\game_code.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="include\stickman_engine.h">
-      <Filter>include</Filter>
-    </ClInclude>
     <ClInclude Include="include\sdl_gl_platform.h">
       <Filter>include\platform</Filter>
     </ClInclude>
@@ -42,9 +39,6 @@
       <Filter>include\utils</Filter>
     </ClInclude>
     <ClInclude Include="include\sdl_Input.h">
-      <Filter>include\platform</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Iplatform.h">
       <Filter>include\platform</Filter>
     </ClInclude>
     <ClInclude Include="include\win32_platform.h">
@@ -58,9 +52,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\stickman_engine.cpp">
-      <Filter>source</Filter>
-    </ClCompile>
     <ClCompile Include="source\game_code.cpp">
       <Filter>source</Filter>
     </ClCompile>
@@ -77,7 +68,7 @@
       <Filter>source\platform\win32</Filter>
     </ClCompile>
     <ClCompile Include="source\sdl_gl_platform.cpp">
-      <Filter>source\platform\win32</Filter>
+      <Filter>source\platform</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

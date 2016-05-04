@@ -7,7 +7,6 @@
 #include "win32_platform.h"
 #include "win32_clock.h"
 #include "win32_io.h"
-#include "stickman_engine.h"
 
 using namespace stickman_engine;
 using namespace stickman_common;
@@ -15,15 +14,15 @@ using namespace stickman_common;
 // WinMain entry point
 int wmain(int argc, char *argv[])
 {
-	engine engine_app;
+	win32_platform platform;
 
-	if (!engine_app.init(new win32_platform()))
+	if (!platform.init())
 	{
-		// TODO: Logging unable to start engine
-		return 0;
+		// TODO: Log error
+		return -1;
 	}
 
-	engine_app.run();
+	platform.run();
 
 	return 0;
 }
@@ -48,14 +47,12 @@ namespace stickman_engine
 		_windowHandle = nullptr;
 	}
 
-	static int testfunction(int a)
+	bool win32_platform::init()
 	{
-		return a + 1;
-	}
+		// Use default size for now
+		int32_t winW = 0;
+		int32_t winH = 0;
 
-
-	bool win32_platform::init(int winW, int winH, Igame_clock **clock, Igame_io **gameIO, game_memory *memory, game_buffer *buffer)
-	{
 		// Define the window
 		WNDCLASS windowClass = {};
 
@@ -96,9 +93,6 @@ namespace stickman_engine
 			// win proc function in a object oriented way
 			SetWindowLongPtr(_windowHandle, GWLP_USERDATA, (LONG_PTR)this);
 
-			// Do an initialize resize (size we will probably miss the initial windows resize)
-			_backBuffer = buffer;
-
 			getClientSize(_windowHandle, &_clientWidth, &_clientHeight);
 			resizeDIBSection(_clientWidth, _clientHeight);
 		}
@@ -116,51 +110,70 @@ namespace stickman_engine
 		LPVOID baseAddress = 0;
 #endif
 
-		memory->persistantStorageSize = MEGABYTES(64);
-		memory->transientStorageSize = GIGABYTES((uint64_t)1);
+		_gameMemory.persistantStorageSize = MEGABYTES(64);
+		_gameMemory.transientStorageSize = GIGABYTES((uint64_t)1);
 
 		// TODO: Get MEM_LARGE_PAGES working as this will allow use to have up to 2mb pages which gives up a small boost in the CPU TLB
-		memory->persistantStorage = VirtualAlloc(baseAddress, memory->persistantStorageSize + memory->transientStorageSize, MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
-		memory->transientStorage = (uint8_t *)(memory->persistantStorage) + memory->persistantStorageSize;
+		_gameMemory.persistantStorage = VirtualAlloc(baseAddress, _gameMemory.persistantStorageSize + _gameMemory.transientStorageSize, MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
+		_gameMemory.transientStorage = (uint8_t *)(_gameMemory.persistantStorage) + _gameMemory.persistantStorageSize;
 
 		// Create and initialize the clock
-		*clock = new win32_clock();
-		(*clock)->init();
+		_gameClock = new win32_clock();
+		_gameClock->init();
 
 		// Create and initialize the gameIO object
-		*gameIO = new win32_io();
+		_gameIO = new win32_io();
 
-
-		int z = testfunction(100);
-		int y = testInline(100);
-
-		return true;
-	}
-
-	bool win32_platform::update()
-	{
-		MSG message;
-		while(PeekMessage(&message, nullptr, 0, 0, PM_REMOVE))
+		// Initialize the game code
+		if (_gameCode.load(&_gameMemory, _gameIO) == false)
 		{
-			if (message.message == WM_QUIT)
-			{
-				// Stop processing messages
-				return true;
-			}
-
-			TranslateMessage(&message);
-			DispatchMessage(&message);
+			// TODO: Error unable to load gamecode
+			return false;
 		}
 
-		// repaint
-		HDC deviceContext = GetDC(_windowHandle);
-		paintWindow(deviceContext);
-		ReleaseDC(_windowHandle, deviceContext);
-
 		return true;
 	}
 
-	void win32_platform::bindQuitCallback(callback0* cb) { _quitCallback = cb; }
+	void win32_platform::run()
+	{
+		_isRunning = true;
+		while (_isRunning == true)
+		{
+			// Paint the back buffer to the screen
+			MSG message;
+			while (PeekMessage(&message, nullptr, 0, 0, PM_REMOVE))
+			{
+				if (message.message == WM_QUIT)
+				{
+					// Stop processing messages
+					return;
+				}
+
+				TranslateMessage(&message);
+				DispatchMessage(&message);
+			}
+
+			_gameCode.updateAndRender(&_gameMemory, &_backBuffer);
+
+			// paint the buffer to the window
+			HDC deviceContext = GetDC(_windowHandle);
+			paintWindow(deviceContext);
+			ReleaseDC(_windowHandle, deviceContext);
+		}
+	}
+
+	void win32_platform::paintWindow(HDC deviceContext)
+	{
+		// Blt the dib section with the option to scale
+		// Note: this is bitblt with scaling
+		StretchDIBits(deviceContext,
+			0, 0, _clientWidth, _clientHeight,				// dest size
+			0, 0, _backBuffer.width, _backBuffer.height,	// source size
+			_backBuffer.memory,
+			&_bitmapInfo,
+			DIB_RGB_COLORS,			// DIB section will not use a palette
+			SRCCOPY);				// copy the src to the dest
+	}
 
 
 	LRESULT CALLBACK win32_platform::handleWinProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
@@ -179,11 +192,11 @@ namespace stickman_engine
 			}
 
 			case WM_CLOSE:
-				_quitCallback->execute();
+				_isRunning = false;
 				break;
 
 			case WM_DESTROY:
-				_quitCallback->execute();
+				_isRunning = false;
 				break;
 
 			case WM_ACTIVATEAPP:
@@ -220,19 +233,19 @@ namespace stickman_engine
 	void win32_platform::resizeDIBSection(int width, int height)
 	{
 		// clean up the old bitmap
-		if (_backBuffer->memory != nullptr)
+		if (_backBuffer.memory != nullptr)
 		{
-			VirtualFree(_backBuffer->memory, 0, MEM_RELEASE);
-			_backBuffer->memory = nullptr;
+			VirtualFree(_backBuffer.memory, 0, MEM_RELEASE);
+			_backBuffer.memory = nullptr;
 		}
 
-		_backBuffer->width = width;
-		_backBuffer->height = height;
-		_backBuffer->stride = width * 4;
+		_backBuffer.width = width;
+		_backBuffer.height = height;
+		_backBuffer.stride = width * 4;
 
 		_bitmapInfo.bmiHeader.biSize = sizeof(_bitmapInfo.bmiHeader);
-		_bitmapInfo.bmiHeader.biWidth = _backBuffer->width;
-		_bitmapInfo.bmiHeader.biHeight = -_backBuffer->height;	// Negative so we can process top-down
+		_bitmapInfo.bmiHeader.biWidth = _backBuffer.width;
+		_bitmapInfo.bmiHeader.biHeight = -_backBuffer.height;	// Negative so we can process top-down
 		_bitmapInfo.bmiHeader.biPlanes = 1;
 
 		// we really only need 24 bits for rgb
@@ -243,28 +256,7 @@ namespace stickman_engine
 		_bitmapInfo.bmiHeader.biCompression = BI_RGB;	// no compression
 
 		int bytesPerPixel = 4; // 32 bits
-		_backBuffer->memory = VirtualAlloc(0, (_backBuffer->width * _backBuffer->height) * bytesPerPixel, MEM_COMMIT, PAGE_READWRITE);
-	}
-
-	void win32_platform::paintWindow(HDC deviceContext)
-	{
-		// Blt the dib section with the option to scale
-		// Note: this is bitblt with scaling
-		StretchDIBits(deviceContext,
-						0, 0, _clientWidth, _clientHeight,				// dest size
-						0, 0, _backBuffer->width, _backBuffer->height,	// source size
-						_backBuffer->memory,
-						&_bitmapInfo,
-						DIB_RGB_COLORS,			// DIB section will not use a palette
-						SRCCOPY);				// copy the src to the dest
-	}
-
-	void win32_platform::getClientSize(HWND hwnd, int *width, int *height)
-	{
-		RECT clientRect;
-		GetClientRect(hwnd, &clientRect);
-		*width = clientRect.right - clientRect.left;
-		*height = clientRect.bottom - clientRect.top;
+		_backBuffer.memory = VirtualAlloc(0, (_backBuffer.width * _backBuffer.height) * bytesPerPixel, MEM_COMMIT, PAGE_READWRITE);
 	}
 }
 

@@ -9,9 +9,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\Igame_core.h">
-      <Filter>include</Filter>
-    </ClInclude>
     <ClInclude Include="include\game_memory.h">
       <Filter>include</Filter>
     </ClInclude>

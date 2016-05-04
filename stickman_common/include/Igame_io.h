@@ -1,6 +1,8 @@
 #ifndef I_GAME_IO_H
 #define I_GAME_IO_H
 
+#include <stdint.h>
+
 namespace stickman_common
 {
 	class Igame_io

@@ -17,7 +17,6 @@
     <ClInclude Include="include\game_memory.h" />
     <ClInclude Include="include\game_state.h" />
     <ClInclude Include="include\globals.h" />
-    <ClInclude Include="include\Igame_core.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\game_memory.cpp" />
