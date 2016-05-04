@@ -39,3 +39,6 @@
 *.iobj
 *.opendb
 *.cache
+
+#Dirs
+bin/
