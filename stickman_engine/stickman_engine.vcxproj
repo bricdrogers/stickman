@@ -15,7 +15,6 @@
     <ClInclude Include="include\game_code.h" />
     <ClInclude Include="include\sdl_Input.h" />
     <ClInclude Include="include\sdl_gl_platform.h" />
-    <ClInclude Include="include\win32_clock.h" />
     <ClInclude Include="include\win32_io.h" />
     <ClInclude Include="include\win32_platform.h" />
   </ItemGroup>
@@ -23,7 +22,6 @@
     <ClCompile Include="source\game_code.cpp" />
     <ClCompile Include="source\sdl_Input.cpp" />
     <ClCompile Include="source\sdl_gl_platform.cpp" />
-    <ClCompile Include="source\win32_clock.cpp" />
     <ClCompile Include="source\win32_io.cpp" />
     <ClCompile Include="source\win32_platform.cpp" />
   </ItemGroup>

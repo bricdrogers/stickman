@@ -24,9 +24,6 @@
     <ClInclude Include="include\Igame_io.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="include\Igame_clock.h">
-      <Filter>include</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\game_memory.cpp">

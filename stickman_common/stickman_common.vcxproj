@@ -12,7 +12,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\game_buffer.h" />
-    <ClInclude Include="include\Igame_clock.h" />
     <ClInclude Include="include\Igame_io.h" />
     <ClInclude Include="include\game_memory.h" />
     <ClInclude Include="include\game_state.h" />

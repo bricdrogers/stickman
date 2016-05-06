@@ -44,9 +44,6 @@
     <ClInclude Include="include\win32_platform.h">
       <Filter>include\platform\win32</Filter>
     </ClInclude>
-    <ClInclude Include="include\win32_clock.h">
-      <Filter>include\platform\win32</Filter>
-    </ClInclude>
     <ClInclude Include="include\win32_io.h">
       <Filter>include\platform\win32</Filter>
     </ClInclude>
@@ -59,9 +56,6 @@
       <Filter>source\input</Filter>
     </ClCompile>
     <ClCompile Include="source\win32_platform.cpp">
-      <Filter>source\platform\win32</Filter>
-    </ClCompile>
-    <ClCompile Include="source\win32_clock.cpp">
       <Filter>source\platform\win32</Filter>
     </ClCompile>
     <ClCompile Include="source\win32_io.cpp">

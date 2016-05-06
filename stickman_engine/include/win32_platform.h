@@ -1,7 +1,6 @@
 #ifndef WIN32_PLATFORM_H
 #define WIN32_PLATFORM_H
 
-#include "Igame_clock.h"
 #include "callback.h"
 #include "game_memory.h"
 #include "game_code.h"
@@ -47,7 +46,6 @@ namespace stickman_engine
 		game_code _gameCode;		// pointer to the gamecode
 		game_memory _gameMemory;	// game memory
 		
-		Igame_clock *_gameClock;	// pointer to the game click
 		Igame_io *_gameIO;			// pointer to the game io
 	};
 }
