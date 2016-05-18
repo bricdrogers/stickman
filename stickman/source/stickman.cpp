@@ -9,7 +9,7 @@ namespace stickman_game
 	stickman::~stickman() {}
 
 
-	bool stickman::initialize(game_memory *memory, Igame_io *gameIO)
+	bool stickman::initialize(game_memory *memory, platform *gameIO)
 	{
 		// Initialize game state
 		game_state *state = memory->getGameState();

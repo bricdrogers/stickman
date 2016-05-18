@@ -5,7 +5,6 @@
 #include <Windows.h>
 #include<stdint.h>
 #include "win32_platform.h"
-#include "win32_clock.h"
 #include "win32_io.h"
 
 using namespace stickman_engine;
@@ -117,15 +116,11 @@ namespace stickman_engine
 		_gameMemory.persistantStorage = VirtualAlloc(baseAddress, _gameMemory.persistantStorageSize + _gameMemory.transientStorageSize, MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
 		_gameMemory.transientStorage = (uint8_t *)(_gameMemory.persistantStorage) + _gameMemory.persistantStorageSize;
 
-		// Create and initialize the clock
-		_gameClock = new win32_clock();
-		_gameClock->init();
-
 		// Create and initialize the gameIO object
-		_gameIO = new win32_io();
+		platform *platformAPI = new platform();
 
 		// Initialize the game code
-		if (_gameCode.load(&_gameMemory, _gameIO) == false)
+		if (_gameCode.load(&_gameMemory, platformAPI) == false)
 		{
 			// TODO: Error unable to load gamecode
 			return false;
@@ -137,6 +132,27 @@ namespace stickman_engine
 	void win32_platform::run()
 	{
 		_isRunning = true;
+
+		// We first need to determine the performance frequency
+		int64_t clockFrequency = 0;
+		int64_t currentTime, currentCycles;
+		{
+			LARGE_INTEGER queryTime = {};
+			if (QueryPerformanceFrequency(&queryTime))
+			{
+				// TODO: Logging Query Performance Failed! Your clock will not work"
+				clockFrequency = queryTime.QuadPart;
+			}
+
+			// Initialize the time
+			QueryPerformanceCounter(&queryTime);
+			currentTime = queryTime.QuadPart;
+
+			// Initialize the cycles
+			currentCycles = __rdtsc();
+		}
+
+
 		while (_isRunning == true)
 		{
 			// Paint the back buffer to the screen
@@ -159,6 +175,28 @@ namespace stickman_engine
 			HDC deviceContext = GetDC(_windowHandle);
 			paintWindow(deviceContext);
 			ReleaseDC(_windowHandle, deviceContext);
+
+			// *******
+			// Frame Stats
+			// *******
+			int64_t oldTime = currentTime;
+			int64_t oldCycles = currentCycles;
+
+			// Grab the processor cycles
+			currentCycles = __rdtsc();
+
+			LARGE_INTEGER queryTime;
+			QueryPerformanceCounter(&queryTime);
+			currentTime = queryTime.QuadPart;
+
+			int64_t elapsedTicks = currentTime - oldTime;
+			int64_t frameKiloCycles = (currentCycles - oldCycles) / 1000;
+			int64_t framesPerSecond = clockFrequency / elapsedTicks;
+			double frameElapsedMS = ((1000 * (elapsedTicks)) / double(clockFrequency));
+
+			char buffer[256];
+			wsprintf(buffer, "Milliseconds/frame: %dms. FPS: %d. Kilocycles/frame: %d\n", (int32_t)frameElapsedMS, (int32_t)framesPerSecond, (int32_t)frameKiloCycles);
+			OutputDebugStringA(buffer);
 		}
 	}
 

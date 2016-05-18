@@ -1,11 +1,14 @@
 #ifndef WIN32_PLATFORM_H
 #define WIN32_PLATFORM_H
 
+#include<Windows.h>
+
 #include "callback.h"
 #include "game_memory.h"
 #include "game_code.h"
 #include "game_buffer.h"
-#include "Igame_io.h"
+#include "win32_io.h"
+
 
 namespace stickman_engine
 {
@@ -42,11 +45,11 @@ namespace stickman_engine
 		// paint storage
 		BITMAPINFO _bitmapInfo;
 		game_buffer _backBuffer;
+		win32_io _winIO;			// pointer to the io
 		
 		game_code _gameCode;		// pointer to the gamecode
 		game_memory _gameMemory;	// game memory
-		
-		Igame_io *_gameIO;			// pointer to the game io
+
 	};
 }
 

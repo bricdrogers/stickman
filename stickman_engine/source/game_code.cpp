@@ -21,7 +21,7 @@ namespace stickman_engine
 		_gameLib = nullptr;
 	}
 
-	bool game_code::load(game_memory *memory, Igame_io *gameIO)
+	bool game_code::load(game_memory *memory, platform *gameIO)
 	{
 		if (_isLoaded == true)
 		{
@@ -77,7 +77,7 @@ namespace stickman_engine
 		_GameInitializeFuncPtr = nullptr;
 	}
 
-	bool game_code::reload(game_memory *memory, Igame_io *gameIO)
+	bool game_code::reload(game_memory *memory, platform *gameIO)
 	{
 		// If game code is loaded, we need to unload the
 		// library

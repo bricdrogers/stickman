@@ -11,7 +11,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\callback.h" />
     <ClInclude Include="include\game_code.h" />
     <ClInclude Include="include\sdl_Input.h" />
     <ClInclude Include="include\sdl_gl_platform.h" />

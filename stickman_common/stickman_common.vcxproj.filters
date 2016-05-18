@@ -21,7 +21,10 @@
     <ClInclude Include="include\game_buffer.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="include\Igame_io.h">
+    <ClInclude Include="include\callback.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\platform.h">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>

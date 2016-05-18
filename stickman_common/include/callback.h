@@ -8,7 +8,7 @@
 #ifndef CALLBACK_H
 #define CALLBACK_H
 
-namespace stickman_engine
+namespace stickman_common
 {
 	// function signature supported:
 	//	void func();
@@ -17,7 +17,7 @@ namespace stickman_engine
 	{
 	private:
 
-		//  Callback1 interface
+		//  Callback0 interface
 		class ICallback0
 		{
 		public:

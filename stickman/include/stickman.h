@@ -3,7 +3,7 @@
 
 #include "game_memory.h"
 #include "game_buffer.h"
-#include "Igame_io.h"
+#include "platform.h"
 
 using namespace stickman_common;
 
@@ -15,12 +15,12 @@ namespace stickman_game
 		stickman();
 		~stickman();
 
-		bool initialize(game_memory *memory, Igame_io *gameIO);
+		bool initialize(game_memory *memory, platform *gameIO);
 		void update_and_render(game_memory *memory, game_buffer *buffer);
 
 	protected:
 	private:
-		Igame_io *_gameIO;		// pointer to the platform independent io object
+		platform *_gameIO;		// pointer to the platform independent io object
 	};
 }
 

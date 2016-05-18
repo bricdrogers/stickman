@@ -35,9 +35,6 @@
     <ClInclude Include="include\sdl_gl_platform.h">
       <Filter>include\platform</Filter>
     </ClInclude>
-    <ClInclude Include="include\callback.h">
-      <Filter>include\utils</Filter>
-    </ClInclude>
     <ClInclude Include="include\sdl_Input.h">
       <Filter>include\platform</Filter>
     </ClInclude>
