@@ -118,6 +118,7 @@ namespace stickman_engine
 
 		// Create and initialize the gameIO object
 		platform *platformAPI = new platform();
+		//platformAPI->writeFile = _winIO.Win32PlatformWriteFile;
 
 		// Initialize the game code
 		if (_gameCode.load(&_gameMemory, platformAPI) == false)
