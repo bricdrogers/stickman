@@ -20,7 +20,7 @@ namespace stickman_game
 
 	protected:
 	private:
-		platform *_gameIO;		// pointer to the platform independent io object
+		platform *_platformAPI;		// pointer to the platform independent io object
 	};
 }
 

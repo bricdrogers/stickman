@@ -41,9 +41,6 @@
     <ClInclude Include="include\win32_platform.h">
       <Filter>include\platform\win32</Filter>
     </ClInclude>
-    <ClInclude Include="include\win32_io.h">
-      <Filter>include\platform\win32</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\game_code.cpp">
@@ -53,9 +50,6 @@
       <Filter>source\input</Filter>
     </ClCompile>
     <ClCompile Include="source\win32_platform.cpp">
-      <Filter>source\platform\win32</Filter>
-    </ClCompile>
-    <ClCompile Include="source\win32_io.cpp">
       <Filter>source\platform\win32</Filter>
     </ClCompile>
     <ClCompile Include="source\sdl_gl_platform.cpp">

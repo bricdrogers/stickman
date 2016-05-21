@@ -7,8 +7,6 @@
 #include "game_memory.h"
 #include "game_code.h"
 #include "game_buffer.h"
-#include "win32_io.h"
-
 
 namespace stickman_engine
 {
@@ -45,11 +43,9 @@ namespace stickman_engine
 		// paint storage
 		BITMAPINFO _bitmapInfo;
 		game_buffer _backBuffer;
-		win32_io _winIO;			// pointer to the io
-		
+
 		game_code _gameCode;		// pointer to the gamecode
 		game_memory _gameMemory;	// game memory
-
 	};
 }
 
