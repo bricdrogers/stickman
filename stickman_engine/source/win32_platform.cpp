@@ -3,7 +3,9 @@
 #ifdef PLATFORM_WIN32
 
 #include <Windows.h>
-#include<stdint.h>
+#include <stdint.h>
+#include <Shlwapi.h>
+
 #include "win32_platform.h"
 #include "platform.h"
 
@@ -172,10 +174,15 @@ namespace stickman_engine
 		_gameMemory.persistantStorage = VirtualAlloc(baseAddress, _gameMemory.persistantStorageSize + _gameMemory.transientStorageSize, MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
 		_gameMemory.transientStorage = (uint8_t *)(_gameMemory.persistantStorage) + _gameMemory.persistantStorageSize;
 
+
+		// Create the assembly info
+		createAssemblyInfo();
+
 		// Create and initialize the platform API object
 		platform *platformAPI = new platform();
 		platformAPI->writeFile = Win32PlatformWriteFile;
 		platformAPI->readFile = Win32PlatformReadFile;
+		platformAPI->assemblyInfo = &_assemblyInfo;
 
 		// Initialize the game code
 		if (_gameCode.load(&_gameMemory, platformAPI) == false)
@@ -256,6 +263,19 @@ namespace stickman_engine
 			wsprintf(buffer, "Milliseconds/frame: %dms. FPS: %d. Kilocycles/frame: %d\n", (int32_t)frameElapsedMS, (int32_t)framesPerSecond, (int32_t)frameKiloCycles);
 			OutputDebugStringA(buffer);
 		}
+	}
+
+	void win32_platform::createAssemblyInfo()
+	{
+		char exePath[MAX_PATH];
+		GetModuleFileNameA(nullptr, exePath, MAX_PATH);
+		if (!PathRemoveFileSpec(exePath))
+		{
+			// TODO: Log ERROR unable to create exe path;
+			return;
+		}
+
+		_assemblyInfo.exeFilePath = std::string(exePath) + "\\";
 	}
 
 	void win32_platform::paintWindow(HDC deviceContext)
