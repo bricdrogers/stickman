@@ -18,6 +18,7 @@ namespace stickman_engine
 		win32_platform();
 
 		bool init();
+		void initGL(HWND window);
 		void run();
 
 		LRESULT CALLBACK handleWinProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);

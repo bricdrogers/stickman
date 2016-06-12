@@ -4,6 +4,7 @@
 
 #include <Windows.h>
 #include<stdint.h>
+#include <gl\GL.h>
 #include "win32_platform.h"
 #include "platform.h"
 
@@ -102,6 +103,33 @@ namespace stickman_engine
 		_windowHandle = nullptr;
 	}
 
+	void win32_platform::initGL(HWND window)
+	{
+		HDC winDC = GetDC(window);
+
+		PIXELFORMATDESCRIPTOR pixelFormat = {};
+		pixelFormat.nSize = sizeof(pixelFormat);
+		pixelFormat.nVersion = 1;
+		pixelFormat.dwFlags = PFD_SUPPORT_OPENGL | PFD_DRAW_TO_WINDOW | PFD_DOUBLEBUFFER;
+		pixelFormat.cColorBits = 32;
+		pixelFormat.cAlphaBits = 8;
+		pixelFormat.iPixelType = PFD_TYPE_RGBA;
+		pixelFormat.iLayerType = PFD_MAIN_PLANE;
+
+		int pixelFormatIndex = ChoosePixelFormat(winDC, &pixelFormat);
+		PIXELFORMATDESCRIPTOR suggestedPixelFormat = {};
+		DescribePixelFormat(winDC, pixelFormatIndex, sizeof(suggestedPixelFormat), &suggestedPixelFormat);
+		SetPixelFormat(winDC, pixelFormatIndex, &suggestedPixelFormat);
+
+		HGLRC glDC = wglCreateContext(winDC);
+		if (!wglMakeCurrent(winDC, glDC))
+		{
+			// TODO: LogError. Unable to initialize opengl
+		}
+
+		ReleaseDC(window, winDC);
+	}
+
 	bool win32_platform::init()
 	{
 		// Use default size for now
@@ -143,6 +171,8 @@ namespace stickman_engine
 				// TODO: Logging unable to create window
 				return false;
 			}
+
+			initGL(_windowHandle);
 
 			// Embed a pointer to the win32_platform instance so we can process the
 			// win proc function in a object oriented way
@@ -269,6 +299,11 @@ namespace stickman_engine
 			&_bitmapInfo,
 			DIB_RGB_COLORS,			// DIB section will not use a palette
 			SRCCOPY);				// copy the src to the dest
+
+		// Remove the bitblt and uncomment this for GL (although this will not use the buffer from stickman, just a test)
+		//glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
+		//glClear(GL_COLOR_BUFFER_BIT);
+		//SwapBuffers(deviceContext);
 	}
 
 
