@@ -32,6 +32,7 @@ namespace stickman_engine
 			*height = clientRect.bottom - clientRect.top;
 		}
 
+		void createAssemblyInfo();
 		void paintWindow(HDC deviceContext);
 		void resizeDIBSection(int width, int height);
 	
@@ -45,8 +46,9 @@ namespace stickman_engine
 		BITMAPINFO _bitmapInfo;
 		game_buffer _backBuffer;
 
-		game_code _gameCode;		// pointer to the gamecode
-		game_memory _gameMemory;	// game memory
+		game_code _gameCode;		 // pointer to the gamecode
+		game_memory _gameMemory;	 // game memory
+		assembly_info _assemblyInfo; // information about the assembly
 	};
 }
 

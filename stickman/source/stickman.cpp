@@ -18,6 +18,11 @@ namespace stickman_game
 		// Store the IO class for later use
 		_platformAPI = platformAPI;
 
+		// Test Loading
+		//int32_t outsize;
+		//std::string testPath = _platformAPI->assemblyInfo->exeFilePath + "BitmapTest1920x1080.bmp";
+		//void * testPtr = _platformAPI->readFile(testPath.c_str() , &outsize);
+
 		return true;
 	}
 
