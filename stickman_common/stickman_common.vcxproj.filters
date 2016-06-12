@@ -27,9 +27,30 @@
     <ClInclude Include="include\engineAPI.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="include\game_assets.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\platform.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\assembly_info.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\bitmap.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\game_memory.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game_assets.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\engineAPI.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\bitmap.cpp">
       <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>

@@ -98,7 +98,7 @@
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
     </ProjectReference>
     <PostBuildEvent>
-      <Command>xcopy ..\data $(targetdir)data /s /d /I &gt; nul</Command>
+      <Command>xcopy ..\data $(targetdir)data /s /d /Y /I &gt; nul</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -133,7 +133,7 @@
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
     </ProjectReference>
     <PostBuildEvent>
-      <Command>xcopy ..\data $(targetdir)data /s /d /I &gt; nul</Command>
+      <Command>xcopy ..\data $(targetdir)data /s /d /Y /I &gt; nul</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

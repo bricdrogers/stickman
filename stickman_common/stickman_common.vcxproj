@@ -11,14 +11,21 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\assembly_info.h" />
+    <ClInclude Include="include\bitmap.h" />
     <ClInclude Include="include\callback.h" />
+    <ClInclude Include="include\game_assets.h" />
     <ClInclude Include="include\game_buffer.h" />
     <ClInclude Include="include\engineAPI.h" />
     <ClInclude Include="include\game_memory.h" />
     <ClInclude Include="include\game_state.h" />
     <ClInclude Include="include\globals.h" />
+    <ClInclude Include="include\platform.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="source\bitmap.cpp" />
+    <ClCompile Include="source\engineAPI.cpp" />
+    <ClCompile Include="source\game_assets.cpp" />
     <ClCompile Include="source\game_memory.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

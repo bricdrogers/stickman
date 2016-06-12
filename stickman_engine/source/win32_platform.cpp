@@ -78,9 +78,9 @@ namespace stickman_engine
 
 	bool win32_platform::init()
 	{
-		// Use default size for now
-		int32_t winW = 0;
-		int32_t winH = 0;
+		// Use default size for now (half 1920x1080 so we don't have to deal with aspect ratio
+		int32_t winW = 960;
+		int32_t winH = 540;
 
 		// Define the window
 		WNDCLASS windowClass = {};
@@ -95,6 +95,9 @@ namespace stickman_engine
 		windowClass.lpszClassName = "stickmanWindow";
 		//windowClass.hIcon = TODO Create ICON
 
+		RECT windowRect = { 0, 0, winW, winH };
+		AdjustWindowRect(&windowRect, WS_OVERLAPPEDWINDOW, false);
+
 		if (RegisterClass(&windowClass))
 		{
 			// Create the window
@@ -105,8 +108,8 @@ namespace stickman_engine
 				WS_OVERLAPPEDWINDOW | WS_VISIBLE,
 				CW_USEDEFAULT,
 				CW_USEDEFAULT,
-				(winW != 0) ? winW : CW_USEDEFAULT,
-				(winW != 0) ? winW : CW_USEDEFAULT,
+				windowRect.right - windowRect.left,
+				windowRect.bottom - windowRect.top,
 				0,
 				0,
 				windowClass.hInstance,
@@ -148,15 +151,15 @@ namespace stickman_engine
 		_gameMemory.persistantStorage = VirtualAlloc(baseAddress, _gameMemory.persistantStorageSize + _gameMemory.transientStorageSize, MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
 		_gameMemory.transientStorage = (uint8_t *)(_gameMemory.persistantStorage) + _gameMemory.persistantStorageSize;
 
-
-		// Create the assembly info
-		createAssemblyInfo();
-
 		// Create and initialize the platform API object
-		engineAPI *engine = new engineAPI();
-		engine->writeFile = Win32PlatformWriteFile;
-		engine->readFile = Win32PlatformReadFile;
-		engine->assemblyInfo = &_assemblyInfo;
+		platform_io * pIO = new platform_io();
+		pIO->writeFile = Win32PlatformWriteFile;
+		pIO->readFile = Win32PlatformReadFile;
+
+		assembly_info *assInfo = new assembly_info();
+		createAssemblyInfo(assInfo);
+
+		engineAPI *engine = new engineAPI(pIO, assInfo);
 
 		// Initialize the game code
 		if (_gameCode.load(&_gameMemory, engine) == false)
@@ -239,7 +242,7 @@ namespace stickman_engine
 		}
 	}
 
-	void win32_platform::createAssemblyInfo()
+	void win32_platform::createAssemblyInfo(assembly_info *assInfo)
 	{
 		char exePath[MAX_PATH];
 		GetModuleFileNameA(nullptr, exePath, MAX_PATH);
@@ -249,8 +252,8 @@ namespace stickman_engine
 			return;
 		}
 
-		_assemblyInfo.exeFilePath = std::string(exePath) + "\\";
-		_assemblyInfo.dataPath = _assemblyInfo.exeFilePath + "data\\";
+		assInfo->exeFilePath = std::string(exePath) + "\\";
+		assInfo->dataPath = assInfo->exeFilePath + "data\\";
 	}
 
 	void win32_platform::paintWindow(HDC deviceContext)

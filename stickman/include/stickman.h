@@ -22,7 +22,8 @@ namespace stickman_game
 	private:
 		engineAPI *_engineAPI;		// pointer to the platform independent io object
 
-		std::string _dataDir; // TODO: Put this somewhere else.
+		// TEMP
+		bitmap * _testData;
 	};
 }
 
