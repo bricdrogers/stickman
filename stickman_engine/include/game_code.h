@@ -3,7 +3,7 @@
 
 #include "stickman_external.h"
 #include "game_memory.h"
-#include "platform.h"
+#include "engineAPI.h"
 
 
 // Forward declare windows types to avoid
@@ -20,8 +20,8 @@ namespace stickman_engine
 	public:
 		game_code();
 
-		bool load(game_memory *memory, platform *gameIO);
-		bool reload(game_memory *memory, platform *gameIO);
+		bool load(game_memory *memory, engineAPI *engineAPI);
+		bool reload(game_memory *memory, engineAPI *engineAPI);
 		void unload();
 		
 		inline void updateAndRender(game_memory *memory, game_buffer *buffer)

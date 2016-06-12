@@ -1,0 +1,11 @@
+- Platform independent input
+- DEBUGGING - Reload stickman game code memory on key press.
+- Load Bitmaps
+- DEBUGGING - Render debug stats to screen
+
+Mid Term
+- Memory Management (scratch space for assets)
+- Push Buffer Rendering (scene graph)
+	- Just going to go with immediate mode for now.
+- Entity System
+- Integrate GL (or Dx) (or both?)

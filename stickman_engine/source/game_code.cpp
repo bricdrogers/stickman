@@ -21,7 +21,7 @@ namespace stickman_engine
 		_gameLib = nullptr;
 	}
 
-	bool game_code::load(game_memory *memory, platform *gameIO)
+	bool game_code::load(game_memory *memory, engineAPI *engineAPI)
 	{
 		if (_isLoaded == true)
 		{
@@ -50,7 +50,7 @@ namespace stickman_engine
 		}
 
 		// Initialize the game
-		_GameInitializeFuncPtr(memory, gameIO);
+		_GameInitializeFuncPtr(memory, engineAPI);
 
 		// Set the loaded flag
 		_isLoaded = true;
@@ -77,7 +77,7 @@ namespace stickman_engine
 		_GameInitializeFuncPtr = nullptr;
 	}
 
-	bool game_code::reload(game_memory *memory, platform *gameIO)
+	bool game_code::reload(game_memory *memory, engineAPI *engineAPI)
 	{
 		// If game code is loaded, we need to unload the
 		// library
@@ -87,6 +87,6 @@ namespace stickman_engine
 		}
 
 		// Load the game code
-		return load(memory, gameIO);
+		return load(memory, engineAPI);
 	}
 }

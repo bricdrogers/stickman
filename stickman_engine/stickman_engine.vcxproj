@@ -14,6 +14,7 @@
     <ClInclude Include="include\game_code.h" />
     <ClInclude Include="include\sdl_Input.h" />
     <ClInclude Include="include\sdl_gl_platform.h" />
+    <ClInclude Include="include\win32_io.h" />
     <ClInclude Include="include\win32_platform.h" />
   </ItemGroup>
   <ItemGroup>
@@ -97,8 +98,7 @@
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
     </ProjectReference>
     <PostBuildEvent>
-      <Command>
-      </Command>
+      <Command>xcopy ..\data $(targetdir)data /s /d /I &gt; nul</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -133,8 +133,7 @@
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
     </ProjectReference>
     <PostBuildEvent>
-      <Command>
-      </Command>
+      <Command>xcopy ..\data $(targetdir)data /s /d /I &gt; nul</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

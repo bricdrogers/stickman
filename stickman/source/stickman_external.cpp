@@ -16,7 +16,7 @@ extern "C" __declspec(dllexport) GAME_INITIALIZE(GameInitialize)
 		return false;
 	}
 
-	return _game->initialize(memory, platformAPI);
+	return _game->initialize(memory, engineAPI);
 }
 
 extern "C" __declspec(dllexport) GAME_UPDATE_AND_RENDER(GameUpdateAndRender)

@@ -24,7 +24,7 @@
     <ClInclude Include="include\callback.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="include\platform.h">
+    <ClInclude Include="include\engineAPI.h">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>

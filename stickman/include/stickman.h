@@ -3,7 +3,7 @@
 
 #include "game_memory.h"
 #include "game_buffer.h"
-#include "platform.h"
+#include "engineAPI.h"
 
 using namespace stickman_common;
 
@@ -15,12 +15,14 @@ namespace stickman_game
 		stickman();
 		~stickman();
 
-		bool initialize(game_memory *memory, platform *gameIO);
+		bool initialize(game_memory *memory, engineAPI *engineAPI);
 		void update_and_render(game_memory *memory, game_buffer *buffer);
 
 	protected:
 	private:
-		platform *_platformAPI;		// pointer to the platform independent io object
+		engineAPI *_engineAPI;		// pointer to the platform independent io object
+
+		std::string _dataDir; // TODO: Put this somewhere else.
 	};
 }
 

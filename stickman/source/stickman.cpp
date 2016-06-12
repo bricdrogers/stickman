@@ -9,19 +9,19 @@ namespace stickman_game
 	stickman::~stickman() {}
 
 
-	bool stickman::initialize(game_memory *memory, platform *platformAPI)
+	bool stickman::initialize(game_memory *memory, engineAPI *engineAPI)
 	{
 		// Initialize game state
 		game_state *state = memory->getGameState();
 		state->test = 100;
 		
 		// Store the IO class for later use
-		_platformAPI = platformAPI;
+		_engineAPI = engineAPI;
 
-		// Test Loading
-		//int32_t outsize;
-		//std::string testPath = _platformAPI->assemblyInfo->exeFilePath + "BitmapTest1920x1080.bmp";
-		//void * testPtr = _platformAPI->readFile(testPath.c_str() , &outsize);
+		//// Test Loading
+		int32_t outsize;
+		std::string testPath = _engineAPI->assemblyInfo->dataPath + "BitmapTest1920x1080.bmp";
+		void * testPtr = _engineAPI->readFile(testPath.c_str(), &outsize);
 
 		return true;
 	}

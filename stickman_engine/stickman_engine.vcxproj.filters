@@ -41,6 +41,9 @@
     <ClInclude Include="include\win32_platform.h">
       <Filter>include\platform\win32</Filter>
     </ClInclude>
+    <ClInclude Include="include\win32_io.h">
+      <Filter>include\platform\win32</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\game_code.cpp">
