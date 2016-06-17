@@ -1,7 +1,6 @@
+- DEBUGGING - Render debug stats to screen
 - Platform independent input
 - DEBUGGING - Reload stickman game code memory on key press.
-- Load Bitmaps
-- DEBUGGING - Render debug stats to screen
 
 Mid Term
 - Memory Management (scratch space for assets)
