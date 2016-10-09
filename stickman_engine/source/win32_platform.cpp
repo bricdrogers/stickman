@@ -260,65 +260,69 @@ namespace stickman_engine
 	{
 		// Blt the dib section with the option to scale
 		// Note: this is bitblt with scaling
-		StretchDIBits(deviceContext,
-			0, 0, _clientWidth, _clientHeight,				// dest size
-			0, 0, _backBuffer.width, _backBuffer.height,	// source size
-			_backBuffer.memory,
-			&_bitmapInfo,
-			DIB_RGB_COLORS,			// DIB section will not use a palette
-			SRCCOPY);				// copy the src to the dest
+		//StretchDIBits(deviceContext,
+		//	0, 0, _clientWidth, _clientHeight,				// dest size
+		//	0, 0, _backBuffer.width, _backBuffer.height,	// source size
+		//	_backBuffer.memory,
+		//	&_bitmapInfo,
+		//	DIB_RGB_COLORS,			// DIB section will not use a palette
+		//	SRCCOPY);				// copy the src to the dest
 
 		// Remove the bitblt and uncomment this for GL (although this will not use the buffer from stickman, just a test)
-		//glViewport(0, 0, _clientWidth, _clientHeight);
+		glViewport(0, 0, _clientWidth, _clientHeight);
 
-		//static GLuint textureHandle = 0;
-		//static bool init = false;
-		//if (!init)
-		//{
-		//	glGenTextures(1, &textureHandle);
-		//	init = true;
-		//}
+		static GLuint textureHandle = 0;
+		static bool init = false;
+		if (!init)
+		{
+			glGenTextures(1, &textureHandle);
+			init = true;
+		}
+		glBindTexture(GL_TEXTURE_2D, textureHandle);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, _backBuffer.width, _backBuffer.height, 0, GL_BGRA_EXT, GL_UNSIGNED_BYTE, _backBuffer.memory);
+		glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 
-		//glBindTexture(GL_TEXTURE_2D, textureHandle);
-		//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, _backBuffer.width, _backBuffer.height, 0, GL_BGRA_EXT, GL_UNSIGNED_BYTE, _backBuffer.memory);
-		//glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
 
-		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+		glEnable(GL_TEXTURE_2D);
 
-		//glEnable(GL_TEXTURE_2D);
+		glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
+		glClear(GL_COLOR_BUFFER_BIT);
 
-		//glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
-		//glClear(GL_COLOR_BUFFER_BIT);
+		glMatrixMode(GL_MODELVIEW); // Dont care right now
+		glLoadIdentity();
 
-		//glMatrixMode(GL_MODELVIEW); // Dont care right now
-		//glLoadIdentity();
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
 
-		//glMatrixMode(GL_PROJECTION);
-		//glLoadIdentity();
+		glBegin(GL_TRIANGLES);
 
-		//glBegin(GL_TRIANGLES);
-
-		//int originX = (int)_clientWidth / 2;
-		//int originY = (int)_clientHeight / 2;
-
-		//float p = 1.0f * .9f;
+		float p = 1.0f * .9f;
 	
-		//glTexCoord2f(0.0f, 0.0f);
-		//glVertex2f(-p, -p);
+		glTexCoord2f(0.0f, 1.0f);
+		glVertex2f(-p, -p);
 	
-		//glTexCoord2f(0.0f, 1.0f);
-		//glVertex2f(-p, p);
+		glTexCoord2f(1.0f, 0.0f);
+		glVertex2f(p, p);
 
-		//glTexCoord2f(1.0f, 1.0f);
-		//glVertex2f(p, p);
+		glTexCoord2f(0.0f, 0.0f);
+		glVertex2f(-p, p);
 
+		glTexCoord2f(1.0f, 1.0f);
+		glVertex2f(p, -p);
 
-		//glEnd();
+		glTexCoord2f(0.0f, 1.0f);
+		glVertex2f(-p, -p);
 
-		//SwapBuffers(deviceContext);
+		glTexCoord2f(1.0f, 0.0f);
+		glVertex2f(p, p);
+
+		glEnd();
+
+		SwapBuffers(deviceContext);
 	}
 
 
